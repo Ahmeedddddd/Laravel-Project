@@ -6,5 +6,5 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    testtGITHUBB testtt
+   Laatste test versie
 }
