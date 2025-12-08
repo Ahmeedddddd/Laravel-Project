@@ -14,47 +14,51 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function show($username)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $profile = Profile::where('username', $username)->firstOrFail();
+
+        return view('profile.show', compact('profile'));
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function edit()
     {
-        $request->user()->fill($request->validated());
+        $user = Auth::user();
+        $profile = $user->profile()->firstOrCreate(
+            ['user_id' => $user->id],
+            ['username' => strtolower(str_replace(' ', '', $user->name))]
+        );
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        return view('profile.edit', compact('profile'));
+    }
+
+
+/* Update the user's profile information.*/
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $profile = $user->profile;
+
+        $request->validate([
+            'username' => 'required|min:3|max:50|unique:profiles,username,' . $profile->id,
+            'display_name' => 'nullable|string|max:100',
+            'bio' => 'nullable|string|max:500',
+            'avatar' => 'nullable|image|max:2048',
+        ]);
+
+        $profile->username = $request->username;
+        $profile->display_name = $request->display_name;
+        $profile->bio = $request->bio;
+
+        // Avatar upload
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $profile->avatar_path = $path;
         }
 
-        $request->user()->save();
+        $profile->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return redirect()->route('profile.edit')->with('success', 'Profiel bijgewerkt!');
     }
 }
