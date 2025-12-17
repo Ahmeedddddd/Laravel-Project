@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('display_name')->nullable();
             $table->text('bio')->nullable();
             $table->string('avatar_path')->nullable(); // profielfoto-pad
+            $table->date('birthday')->nullable();
             $table->timestamps();
         });
 
