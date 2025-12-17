@@ -2,12 +2,20 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        // Only authenticated users can update a profile; controller will perform ownership check via policy.
+        return (bool) $this->user();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,16 +23,14 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $profileId = optional($this->user()->profile)->id ?? null;
+
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
-            ],
+            'username' => ['required', 'alpha_dash', 'min:3', 'max:50', Rule::unique('profiles', 'username')->ignore($profileId)],
+            'display_name' => ['nullable', 'string', 'max:100'],
+            'bio' => ['nullable', 'string', 'max:1000'],
+            'birthday' => ['nullable', 'date', 'before:today'],
+            'avatar' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }
