@@ -26,6 +26,43 @@ class ProfileController extends Controller
     }
 
     /**
+     * Create a unique username based on a preferred base.
+     */
+    private function generateUniqueUsername(string $preferred): string
+    {
+        $base = Str::slug($preferred, '');
+        $base = $base !== '' ? strtolower($base) : 'user';
+
+        $username = $base;
+        $i = 2;
+
+        while (Profile::where('username', $username)->exists()) {
+            $username = $base . $i;
+            $i++;
+        }
+
+        return $username;
+    }
+
+    /**
+     * Get or create the authenticated user's profile.
+     */
+    private function getOrCreateProfileForUser(\App\Models\User $user): Profile
+    {
+        $profile = $user->profile;
+        if ($profile) {
+            return $profile;
+        }
+
+        $username = $this->generateUniqueUsername($user->name);
+
+        return $user->profile()->create([
+            'user_id' => $user->id,
+            'username' => $username,
+        ]);
+    }
+
+    /**
      * Show form to edit the authenticated user's profile.
      */
     public function edit(): View
@@ -37,10 +74,7 @@ class ProfileController extends Controller
             abort(403);
         }
 
-        $profile = $user->profile()->firstOrCreate(
-            ['user_id' => $user->id],
-            ['username' => strtolower(str_replace(' ', '', $user->name))]
-        );
+        $profile = $this->getOrCreateProfileForUser($user);
 
         $this->authorize('update', $profile);
 
@@ -57,10 +91,7 @@ class ProfileController extends Controller
             abort(403);
         }
 
-        $profile = $user->profile()->firstOrCreate(
-            ['user_id' => $user->id],
-            ['username' => strtolower(str_replace(' ', '', $user->name))]
-        );
+        $profile = $this->getOrCreateProfileForUser($user);
 
         $this->authorize('update', $profile);
 
