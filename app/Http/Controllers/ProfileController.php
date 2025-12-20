@@ -95,7 +95,32 @@ class ProfileController extends Controller
 
         $this->authorize('update', $profile);
 
+        // Breeze-style account fields
+        $userDirty = false;
+        if ($request->filled('name') && $request->input('name') !== $user->name) {
+            $user->name = $request->input('name');
+            $userDirty = true;
+        }
+
+        if ($request->filled('email') && $request->input('email') !== $user->email) {
+            $user->email = $request->input('email');
+            $user->email_verified_at = null;
+            $userDirty = true;
+        }
+
+        if ($userDirty) {
+            $user->save();
+        }
+
+        // Profile fields (only update when provided)
         $data = $request->only(['username', 'display_name', 'bio', 'birthday']);
+
+        // Remove keys that were not present in the request so we don't accidentally null them.
+        foreach (array_keys($data) as $key) {
+            if (! $request->has($key)) {
+                unset($data[$key]);
+            }
+        }
 
         // Avatar upload handling with server-side resize
         if ($request->hasFile('avatar')) {
@@ -140,8 +165,10 @@ class ProfileController extends Controller
             $data['avatar_path'] = $mainPath;
         }
 
-        $profile->fill($data);
-        $profile->save();
+        if (! empty($data)) {
+            $profile->fill($data);
+            $profile->save();
+        }
 
         return Redirect::route('profile.edit')->with('success', 'Profiel opgeslagen.');
     }
