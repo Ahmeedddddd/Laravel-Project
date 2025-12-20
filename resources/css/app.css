@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+  Minimal theme polish (white & green). We keep HTML intact and rely on Tailwind.
+  These base styles only smooth typography and defaults.
+*/
+@layer base {
+  html {
+    @apply text-slate-900;
+  }
+
+  body {
+    @apply bg-slate-50;
+  }
+
+  a {
+    @apply underline-offset-4;
+  }
+}
