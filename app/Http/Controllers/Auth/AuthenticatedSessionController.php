@@ -28,6 +28,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = $request->user();
+
+        // Admins land on the separate admin dashboard
+        if ($user && ($user->is_admin ?? false)) {
+            return redirect()->intended(route('admin.dashboard', absolute: false));
+        }
+
+        // Normal users keep the existing dashboard
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
