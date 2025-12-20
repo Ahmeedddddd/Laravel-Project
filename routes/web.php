@@ -19,10 +19,14 @@ Route::get('/profiel/{username}', [ProfileController::class, 'show'])->name('pro
 
 // Authenticated routes for editing own profile
 Route::middleware(['auth'])->group(function () {
-    // Account settings (Breeze-compatible)
-    Route::get('/profile', [AccountController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [AccountController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [AccountController::class, 'destroy'])->name('profile.destroy');
+    // RESTORE: /profile should be the full profile editor (avatar, bio, etc.)
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Account settings (Breeze-compatible) moved to /account to avoid conflicts
+    Route::get('/account', [AccountController::class, 'edit'])->name('account.edit');
+    Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
+    Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
 
     // Existing custom profile editor (Dutch URL)
     Route::get('/profiel', [ProfileController::class, 'edit']);
