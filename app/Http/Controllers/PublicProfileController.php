@@ -12,11 +12,10 @@ class PublicProfileController extends Controller
      */
     public function show(string $username): View
     {
-        $profile = Profile::where('username', $username)->firstOrFail();
+        $profile = Profile::whereRaw('lower(username) = ?', [mb_strtolower($username)])->firstOrFail();
 
         return view('public.user-show', [
             'profile' => $profile,
         ]);
     }
 }
-
