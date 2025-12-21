@@ -4,12 +4,17 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsPublicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Public homepage (guest) + search (GET)
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Public news
+Route::get('/news', [NewsPublicController::class, 'index'])->name('news.index');
+Route::get('/news/{news}', [NewsPublicController::class, 'show'])->name('news.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
