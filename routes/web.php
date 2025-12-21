@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsPublicController;
 use App\Http\Controllers\ProfileController;
@@ -17,9 +18,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/news', [NewsPublicController::class, 'index'])->name('news.index');
 Route::get('/news/{news}', [NewsPublicController::class, 'show'])->name('news.show');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 // Public profile view (anyone) - required URL structure:
 Route::get('/users/{username}', [PublicProfileController::class, 'show'])->name('public.users.show');
