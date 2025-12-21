@@ -43,6 +43,45 @@
 
     <div class="mt-8">
         <div class="flex items-center justify-between gap-4">
+            <h2 class="text-lg font-semibold">Laatste nieuwtjes</h2>
+            <a class="text-sm underline text-gray-600" href="{{ route('news.index') }}">Alle nieuws</a>
+        </div>
+
+        <div class="mt-4 bg-white border border-gray-200 rounded-lg divide-y">
+            @forelse ($latestNews as $item)
+                <a
+                    href="{{ route('news.show', $item) }}"
+                    class="flex items-start gap-3 p-4 hover:bg-gray-50 focus:bg-gray-50"
+                >
+                    @if ($item->image_path)
+                        <img
+                            src="{{ asset('storage/' . $item->image_path) }}"
+                            alt="{{ $item->title }}"
+                            class="w-16 h-12 rounded object-cover border shrink-0"
+                            loading="lazy"
+                        />
+                    @else
+                        <div class="w-16 h-12 rounded bg-gray-100 border shrink-0"></div>
+                    @endif
+
+                    <div class="min-w-0 flex-1">
+                        <div class="font-medium truncate">{{ $item->title }}</div>
+                        <div class="text-xs text-gray-500 mt-0.5">{{ optional($item->published_at)->format('d/m/Y H:i') }}</div>
+                        <div class="text-sm text-gray-700 mt-2">
+                            {{ \Illuminate\Support\Str::limit($item->content, 120) }}
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-gray-400 mt-1">Lees &rarr;</div>
+                </a>
+            @empty
+                <div class="p-4 text-sm text-gray-600">Geen nieuws beschikbaar.</div>
+            @endforelse
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <div class="flex items-center justify-between gap-4">
             <h2 class="text-lg font-semibold">Gebruikers</h2>
             <p class="text-xs text-gray-500">{{ $profiles->total() }} resultaat{{ $profiles->total() === 1 ? '' : 'en' }}</p>
         </div>
@@ -76,7 +115,7 @@
                             <div class="text-sm text-gray-600 truncate">{{ '@' . $profile->username }}</div>
                         </div>
 
-                        <div class="text-xs text-gray-400">Bekijk →</div>
+                        <div class="text-xs text-gray-400">Bekijk &rarr;</div>
                     </a>
                 @endforeach
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -35,10 +36,17 @@ class HomeController extends Controller
             ->paginate(12)
             ->appends($request->query());
 
+        $latestNews = News::query()
+            ->whereNotNull('published_at')
+            ->orderByDesc('published_at')
+            ->select(['id', 'title', 'image_path', 'content', 'published_at'])
+            ->limit(3)
+            ->get();
+
         return view('public.home', [
             'q' => $q,
             'profiles' => $profiles,
+            'latestNews' => $latestNews,
         ]);
     }
 }
-
