@@ -7,6 +7,7 @@ use App\Models\News;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class AdminNewsController extends Controller
 {
@@ -67,7 +68,13 @@ class AdminNewsController extends Controller
 
     public function destroy(News $news): RedirectResponse
     {
-        // Step 6 will implement delete.
-        return redirect()->route('admin.news.index')->with('success', 'News item (placeholder) verwijderd.');
+        // Best-effort delete of associated image
+        if (! empty($news->image_path)) {
+            Storage::disk('public')->delete($news->image_path);
+        }
+
+        $news->delete();
+
+        return redirect()->route('admin.news.index')->with('success', 'Nieuwsitem verwijderd.');
     }
 }
