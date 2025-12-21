@@ -28,9 +28,28 @@ class AdminNewsController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        // Step 4 will implement validation + upload.
-        // For now, just a minimal placeholder to prove routing works.
-        return redirect()->route('admin.news.index')->with('success', 'News item (placeholder) opgeslagen.');
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
+            'published_at' => ['required', 'date'],
+            'image' => ['nullable', 'image', 'max:4096'], // 4MB
+        ]);
+
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('news', 'public');
+        }
+
+        News::create([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'published_at' => $validated['published_at'],
+            'image_path' => $imagePath,
+            'created_by' => $request->user()?->id,
+        ]);
+
+        return redirect()->route('admin.news.index')->with('success', 'Nieuwsitem aangemaakt.');
     }
 
     public function edit(News $news): View
@@ -52,4 +71,3 @@ class AdminNewsController extends Controller
         return redirect()->route('admin.news.index')->with('success', 'News item (placeholder) verwijderd.');
     }
 }
-
