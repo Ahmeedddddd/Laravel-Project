@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsPublicController;
@@ -57,6 +58,9 @@ Route::middleware(['auth', 'is_admin'])
         Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
 
         Route::patch('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggleAdmin');
+
+        // News CRUD
+        Route::resource('news', AdminNewsController::class)->except(['show']);
 
         // Backwards-compatible endpoints (can be removed later)
         Route::patch('/users/{user}/make-admin', [AdminUserController::class, 'makeAdmin'])->name('users.make');

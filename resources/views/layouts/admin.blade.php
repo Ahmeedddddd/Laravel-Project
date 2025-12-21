@@ -15,6 +15,7 @@
                 <nav class="flex items-center gap-3 text-sm">
                     <a href="{{ route('admin.dashboard') }}" class="hover:underline">Dashboard</a>
                     <a href="{{ route('admin.users.index') }}" class="hover:underline">Users</a>
+                    <a href="{{ route('admin.news.index') }}" class="hover:underline">News</a>
                 </nav>
             </div>
 
