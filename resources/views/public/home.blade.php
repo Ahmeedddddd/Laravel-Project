@@ -44,38 +44,47 @@
     <div class="mt-8">
         <div class="flex items-center justify-between gap-4">
             <h2 class="text-lg font-semibold">Laatste nieuwtjes</h2>
-            <a class="text-sm underline text-gray-600" href="{{ route('news.index') }}">Alle nieuws</a>
+            <a class="text-sm underline text-slate-600 hover:text-emerald-700" href="{{ route('news.index') }}">Alle nieuws</a>
         </div>
 
-        <div class="mt-4 bg-white border border-gray-200 rounded-lg divide-y">
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             @forelse ($latestNews as $item)
                 <a
                     href="{{ route('news.show', $item) }}"
-                    class="flex items-start gap-3 p-4 hover:bg-gray-50 focus:bg-gray-50"
+                    class="group bg-white border border-slate-200 rounded-lg overflow-hidden hover:border-emerald-200 hover:shadow-sm transition"
                 >
-                    @if ($item->image_path)
-                        <img
-                            src="{{ asset('storage/' . $item->image_path) }}"
-                            alt="{{ $item->title }}"
-                            class="w-16 h-12 rounded object-cover border shrink-0"
-                            loading="lazy"
-                        />
-                    @else
-                        <div class="w-16 h-12 rounded bg-gray-100 border shrink-0"></div>
-                    @endif
-
-                    <div class="min-w-0 flex-1">
-                        <div class="font-medium truncate">{{ $item->title }}</div>
-                        <div class="text-xs text-gray-500 mt-0.5">{{ optional($item->published_at)->format('d/m/Y H:i') }}</div>
-                        <div class="text-sm text-gray-700 mt-2">
-                            {{ \Illuminate\Support\Str::limit($item->content, 120) }}
-                        </div>
+                    <div class="aspect-[16/9] bg-slate-100">
+                        @if ($item->image_path)
+                            <img
+                                src="{{ asset('storage/' . $item->image_path) }}"
+                                alt="{{ $item->title }}"
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                        @else
+                            <div class="w-full h-full flex items-center justify-center text-xs text-slate-500">
+                                Geen afbeelding
+                            </div>
+                        @endif
                     </div>
 
-                    <div class="text-xs text-gray-400 mt-1">Lees &rarr;</div>
+                    <div class="p-4">
+                        <div class="font-semibold text-slate-900 group-hover:text-emerald-700 line-clamp-2">
+                            {{ $item->title }}
+                        </div>
+                        <div class="text-xs text-slate-500 mt-1">
+                            {{ optional($item->published_at)->format('d/m/Y H:i') }}
+                        </div>
+                        <p class="text-sm text-slate-700 mt-3 line-clamp-3">
+                            {{ \Illuminate\Support\Str::limit($item->content, 140) }}
+                        </p>
+                        <div class="mt-3 text-sm text-emerald-700 underline">Lees meer</div>
+                    </div>
                 </a>
             @empty
-                <div class="p-4 text-sm text-gray-600">Geen nieuws beschikbaar.</div>
+                <div class="bg-white border border-slate-200 rounded-lg p-6 text-sm text-slate-600">
+                    Geen nieuws beschikbaar.
+                </div>
             @endforelse
         </div>
     </div>
