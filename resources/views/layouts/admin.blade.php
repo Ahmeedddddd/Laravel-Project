@@ -16,6 +16,8 @@
                     <a href="{{ route('admin.dashboard') }}" class="hover:underline">Dashboard</a>
                     <a href="{{ route('admin.users.index') }}" class="hover:underline">Users</a>
                     <a href="{{ route('admin.news.index') }}" class="hover:underline">News</a>
+                    <a href="{{ route('admin.categories.index') }}" class="hover:underline">FAQ categories</a>
+                    <a href="{{ route('admin.items.index') }}" class="hover:underline">FAQ items</a>
                 </nav>
             </div>
 

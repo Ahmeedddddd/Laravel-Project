@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminFaqCategoryController;
+use App\Http\Controllers\Admin\AdminFaqItemController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\DashboardController;
@@ -66,6 +68,16 @@ Route::middleware(['auth', 'is_admin'])
 
         // News CRUD
         Route::resource('news', AdminNewsController::class)->except(['show']);
+
+        // FAQ categories CRUD
+        Route::resource('faq/categories', AdminFaqCategoryController::class)
+            ->parameters(['categories' => 'category'])
+            ->except(['show']);
+
+        // FAQ items CRUD
+        Route::resource('faq/items', AdminFaqItemController::class)
+            ->parameters(['items' => 'item'])
+            ->except(['show']);
 
         // Backwards-compatible endpoints (can be removed later)
         Route::patch('/users/{user}/make-admin', [AdminUserController::class, 'makeAdmin'])->name('users.make');
