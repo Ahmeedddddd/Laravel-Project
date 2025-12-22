@@ -16,9 +16,25 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
+                            {{ __('News') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
+                            {{ __('FAQ') }}
+                        </x-nav-link>
                     @else
                         <x-nav-link :href="url('/')" :active="request()->is('/')">
                             {{ __('Home') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
+                            {{ __('News') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
+                            {{ __('FAQ') }}
                         </x-nav-link>
                     @endauth
                 </div>
@@ -90,9 +106,25 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
+                    {{ __('News') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
+                    {{ __('FAQ') }}
+                </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
                     {{ __('Home') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
+                    {{ __('News') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
+                    {{ __('FAQ') }}
                 </x-responsive-nav-link>
             @endauth
         </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FaqPublicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsPublicController;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Public news
 Route::get('/news', [NewsPublicController::class, 'index'])->name('news.index');
 Route::get('/news/{news}', [NewsPublicController::class, 'show'])->name('news.show');
+
+// Public FAQ
+Route::get('/faq', [FaqPublicController::class, 'index'])->name('faq.index');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
