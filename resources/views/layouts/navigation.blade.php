@@ -24,6 +24,10 @@
                         <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
                             {{ __('FAQ') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('contact.show')" :active="request()->routeIs('contact.*')">
+                            {{ __('Contact') }}
+                        </x-nav-link>
                     @else
                         <x-nav-link :href="url('/')" :active="request()->is('/')">
                             {{ __('Home') }}
@@ -35,6 +39,10 @@
 
                         <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
                             {{ __('FAQ') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('contact.show')" :active="request()->routeIs('contact.*')">
+                            {{ __('Contact') }}
                         </x-nav-link>
                     @endauth
                 </div>
@@ -114,6 +122,10 @@
                 <x-responsive-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
                     {{ __('FAQ') }}
                 </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('contact.show')" :active="request()->routeIs('contact.*')">
+                    {{ __('Contact') }}
+                </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
                     {{ __('Home') }}
@@ -125,6 +137,10 @@
 
                 <x-responsive-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.*')">
                     {{ __('FAQ') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('contact.show')" :active="request()->routeIs('contact.*')">
+                    {{ __('Contact') }}
                 </x-responsive-nav-link>
             @endauth
         </div>

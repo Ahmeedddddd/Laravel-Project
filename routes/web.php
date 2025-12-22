@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminFaqCategoryController;
 use App\Http\Controllers\Admin\AdminFaqItemController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqPublicController;
 use App\Http\Controllers\HomeController;
@@ -23,6 +24,10 @@ Route::get('/news/{news}', [NewsPublicController::class, 'show'])->name('news.sh
 
 // Public FAQ
 Route::get('/faq', [FaqPublicController::class, 'index'])->name('faq.index');
+
+// Public Contact
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
