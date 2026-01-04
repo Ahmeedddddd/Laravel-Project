@@ -14,24 +14,10 @@ class HomeController extends Controller
      */
     public function index(Request $request): View
     {
-        $q = trim((string) $request->query('q', ''));
+        $q = (string) $request->query('q', '');
 
-        // Basic guard: keep query reasonable.
-        if (mb_strlen($q) > 100) {
-            $q = mb_substr($q, 0, 100);
-        }
-
-        $profilesQuery = Profile::query();
-
-        if ($q !== '') {
-            $profilesQuery->where(function ($query) use ($q) {
-                $query
-                    ->where('username', 'like', '%' . $q . '%')
-                    ->orWhere('display_name', 'like', '%' . $q . '%');
-            });
-        }
-
-        $profiles = $profilesQuery
+        $profiles = Profile::query()
+            ->search($q)
             ->orderBy('username')
             ->paginate(12)
             ->appends($request->query());
@@ -44,7 +30,7 @@ class HomeController extends Controller
             ->get();
 
         return view('public.home', [
-            'q' => $q,
+            'q' => trim($q) === '' ? '' : mb_substr(trim($q), 0, 100),
             'profiles' => $profiles,
             'latestNews' => $latestNews,
         ]);

@@ -13,6 +13,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsPublicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\UserSearchController;
 use Illuminate\Support\Facades\Route;
 
 // Public homepage (guest) + search (GET)
@@ -43,6 +44,10 @@ Route::get('/profiel/{username}', function (string $username) {
 
 // Authenticated routes for editing own profile
 Route::middleware(['auth'])->group(function () {
+    // Auth-only user search (public profile results)
+    Route::get('/users', [UserSearchController::class, 'index'])->name('users.search');
+    Route::get('/users/suggest', [UserSearchController::class, 'suggest'])->name('users.suggest');
+
     // RESTORE: /profile should be the full profile editor (avatar, bio, etc.)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

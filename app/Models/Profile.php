@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -32,5 +33,28 @@ class Profile extends Model
         }
 
         return null;
+    }
+
+    /**
+     * Reusable search scope (public-safe): searches by username or display name.
+     */
+    public function scopeSearch(Builder $query, ?string $q): Builder
+    {
+        $q = trim((string) ($q ?? ''));
+
+        if ($q === '') {
+            return $query;
+        }
+
+        // Basic guard: keep query reasonable.
+        if (mb_strlen($q) > 100) {
+            $q = mb_substr($q, 0, 100);
+        }
+
+        return $query->where(function (Builder $sub) use ($q) {
+            $sub
+                ->where('username', 'like', '%' . $q . '%')
+                ->orWhere('display_name', 'like', '%' . $q . '%');
+        });
     }
 }
