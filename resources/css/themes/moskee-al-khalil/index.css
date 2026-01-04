@@ -1,0 +1,1005 @@
+/*
+  Moskee Al Khalil — Theme
+  Inspired by calm, professional mosque/charity websites.
+  Modern, clean and sophisticated design with attention to detail.
+
+  Integration:
+  - imported from resources/css/app.css
+  - activated by setting <html data-theme="moskee-al-khalil">
+*/
+
+/*
+  ============================================
+  DESIGN TOKENS
+  ============================================
+  HSL-based tokens for easy theming and consistency.
+*/
+:root,
+html[data-theme="moskee-al-khalil"] {
+  /* === Core Surfaces === */
+  --ak-bg: 210 40% 98%;           /* Page background - soft cool white */
+  --ak-surface: 0 0% 100%;        /* Cards, modals - pure white */
+  --ak-surface-2: 210 40% 96%;    /* Subtle sections - light gray-blue */
+  --ak-surface-hover: 210 35% 97%;/* Hover states */
+  --ak-overlay: 220 13% 9%;       /* Modal overlays */
+
+  /* === Text Colors === */
+  --ak-text: 222 47% 11%;         /* Primary text - deep navy */
+  --ak-text-medium: 215 20% 35%;  /* Medium emphasis */
+  --ak-muted: 215 16% 47%;        /* Muted text */
+  --ak-muted-2: 215 14% 62%;      /* Extra muted */
+
+  /* === Brand Palette === */
+  --ak-brand: 174 61% 25%;        /* Primary brand - deep teal */
+  --ak-brand-2: 174 55% 30%;      /* Brand hover */
+  --ak-brand-light: 174 50% 85%;  /* Brand tint */
+  --ak-accent: 152 54% 42%;       /* Accent - emerald green */
+  --ak-accent-2: 152 54% 36%;     /* Accent dark */
+  --ak-accent-light: 152 45% 88%; /* Accent tint */
+
+  /* === Semantic Colors === */
+  --ak-success: 142 76% 36%;
+  --ak-warning: 38 92% 50%;
+  --ak-error: 0 72% 51%;
+  --ak-info: 199 89% 48%;
+
+  /* === Borders & Dividers === */
+  --ak-border: 214 32% 91%;       /* Default borders */
+  --ak-border-medium: 214 30% 85%;/* Emphasized borders */
+  --ak-border-strong: 214 28% 75%;/* Strong borders */
+  --ak-ring: 152 70% 45%;         /* Focus rings */
+
+  /* === Shadows === */
+  --ak-shadow-xs: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --ak-shadow-sm: 0 6px 18px rgba(15, 23, 42, 0.06);
+  --ak-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --ak-shadow-md: 0 16px 40px rgba(15, 23, 42, 0.1);
+  --ak-shadow-lg: 0 24px 50px rgba(15, 23, 42, 0.12);
+  --ak-shadow-colored: 0 10px 24px rgba(16, 185, 129, 0.18);
+  --ak-shadow-colored-lg: 0 14px 32px rgba(16, 185, 129, 0.22);
+
+  /* === Border Radius === */
+  --ak-radius: 16px;
+  --ak-radius-sm: 10px;
+  --ak-radius-md: 12px;
+  --ak-radius-lg: 20px;
+  --ak-radius-xl: 24px;
+  --ak-radius-full: 9999px;
+
+  /* === Typography === */
+  --ak-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --ak-font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* === Layout === */
+  --ak-container: 72rem;          /* ~1152px */
+  --ak-container-narrow: 56rem;   /* ~896px */
+  --ak-container-wide: 90rem;     /* ~1440px */
+
+  /* === Spacing === */
+  --ak-section-spacing: 5rem;     /* Vertical section spacing */
+  --ak-nav-height: 4.5rem;        /* Navigation bar height */
+
+  /* === Transitions === */
+  --ak-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ak-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/*
+  ============================================
+  BASE LAYER - Global Styles
+  ============================================
+*/
+@layer base {
+  html[data-theme="moskee-al-khalil"] {
+    color: hsl(var(--ak-text));
+    font-family: var(--ak-font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+  }
+
+  html[data-theme="moskee-al-khalil"] body {
+    background:
+      radial-gradient(1200px 700px at 12% -8%, rgba(16, 185, 129, 0.08), transparent 58%),
+      radial-gradient(1000px 600px at 92% -12%, rgba(20, 184, 166, 0.08), transparent 52%),
+      radial-gradient(800px 400px at 50% 100%, rgba(16, 185, 129, 0.04), transparent 60%),
+      hsl(var(--ak-bg));
+    min-height: 100vh;
+  }
+
+  html[data-theme="moskee-al-khalil"] ::selection {
+    background: rgba(16, 185, 129, 0.2);
+    color: hsl(var(--ak-text));
+  }
+
+  /* === Typography === */
+  html[data-theme="moskee-al-khalil"] h1,
+  html[data-theme="moskee-al-khalil"] h2,
+  html[data-theme="moskee-al-khalil"] h3,
+  html[data-theme="moskee-al-khalil"] h4 {
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: hsl(var(--ak-text));
+    line-height: 1.3;
+  }
+
+  html[data-theme="moskee-al-khalil"] h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  html[data-theme="moskee-al-khalil"] h2 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+  }
+
+  html[data-theme="moskee-al-khalil"] h3 {
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+  }
+
+  html[data-theme="moskee-al-khalil"] p {
+    line-height: 1.7;
+    color: hsl(var(--ak-text-medium));
+  }
+
+  /* === Links === */
+  html[data-theme="moskee-al-khalil"] a {
+    color: hsl(var(--ak-brand));
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--ak-transition), text-decoration-color var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] a:hover {
+    color: hsl(var(--ak-accent));
+    text-decoration-color: hsl(var(--ak-accent) / 0.5);
+  }
+
+  /* === Focus Styles === */
+  html[data-theme="moskee-al-khalil"] :focus-visible {
+    outline: 2px solid hsl(var(--ak-ring));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* === Horizontal Rules === */
+  html[data-theme="moskee-al-khalil"] hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--ak-border-medium)) 20%,
+      hsl(var(--ak-border-medium)) 80%,
+      transparent
+    );
+    margin: 2rem 0;
+  }
+}
+
+
+/*
+  ============================================
+  COMPONENTS LAYER - Reusable UI Elements
+  ============================================
+*/
+@layer components {
+
+  /* === LAYOUT CONTAINERS === */
+  html[data-theme="moskee-al-khalil"] .container-page {
+    max-width: var(--ak-container);
+    margin-inline: auto;
+    padding: 2.5rem 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    html[data-theme="moskee-al-khalil"] .container-page {
+      padding: 3rem 2rem;
+    }
+  }
+
+  html[data-theme="moskee-al-khalil"] .container-narrow {
+    max-width: var(--ak-container-narrow);
+    margin-inline: auto;
+  }
+
+  html[data-theme="moskee-al-khalil"] .container-wide {
+    max-width: var(--ak-container-wide);
+    margin-inline: auto;
+  }
+
+  /* === NAVIGATION === */
+  html[data-theme="moskee-al-khalil"] nav {
+    background: hsl(var(--ak-surface) / 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid hsl(var(--ak-border));
+    transition: box-shadow var(--ak-transition), background var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] nav.scrolled {
+    box-shadow: var(--ak-shadow-sm);
+    background: hsl(var(--ak-surface));
+  }
+
+  /* Navigation Links */
+  html[data-theme="moskee-al-khalil"] nav a {
+    position: relative;
+    color: hsl(var(--ak-text-medium));
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    padding: 0.5rem 0.75rem;
+    transition: color var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] nav a:hover {
+    color: hsl(var(--ak-brand));
+  }
+
+  html[data-theme="moskee-al-khalil"] nav a.active {
+    color: hsl(var(--ak-brand));
+    font-weight: 600;
+  }
+
+  html[data-theme="moskee-al-khalil"] nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0.75rem;
+    right: 0.75rem;
+    height: 3px;
+    background: linear-gradient(90deg, hsl(var(--ak-accent)), hsl(var(--ak-brand)));
+    border-radius: 3px 3px 0 0;
+  }
+
+  /* === CARDS === */
+  html[data-theme="moskee-al-khalil"] .card {
+    background: hsl(var(--ak-surface));
+    border: 1px solid hsl(var(--ak-border));
+    border-radius: var(--ak-radius);
+    box-shadow: var(--ak-shadow-sm);
+    padding: 1.25rem;
+    transition: box-shadow var(--ak-transition), transform var(--ak-transition),
+                border-color var(--ak-transition);
+  }
+
+  @media (min-width: 640px) {
+    html[data-theme="moskee-al-khalil"] .card {
+      padding: 1.75rem;
+    }
+  }
+
+  html[data-theme="moskee-al-khalil"] .card:hover {
+    box-shadow: var(--ak-shadow);
+    border-color: hsl(var(--ak-border-medium));
+  }
+
+  html[data-theme="moskee-al-khalil"] .card-interactive {
+    cursor: pointer;
+  }
+
+  html[data-theme="moskee-al-khalil"] .card-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ak-shadow-md);
+  }
+
+  html[data-theme="moskee-al-khalil"] .card-interactive:active {
+    transform: translateY(0);
+    box-shadow: var(--ak-shadow-sm);
+  }
+
+  /* Card with Image */
+  html[data-theme="moskee-al-khalil"] .card img {
+    border-radius: var(--ak-radius-sm);
+    object-fit: cover;
+  }
+
+  /* === NEWS/ARTICLE CARDS === */
+  html[data-theme="moskee-al-khalil"] article.card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 640px) {
+    html[data-theme="moskee-al-khalil"] article.card {
+      flex-direction: column;
+    }
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card img {
+    flex-shrink: 0;
+    width: 140px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--ak-radius-md);
+    border: 1px solid hsl(var(--ak-border));
+  }
+
+  @media (max-width: 640px) {
+    html[data-theme="moskee-al-khalil"] article.card img {
+      width: 100%;
+      height: 200px;
+    }
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card h3 a {
+    color: hsl(var(--ak-text));
+    text-decoration: none;
+    transition: color var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card h3 a:hover {
+    color: hsl(var(--ak-accent));
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: hsl(var(--ak-muted));
+    margin-bottom: 0.75rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card .article-excerpt {
+    color: hsl(var(--ak-text-medium));
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card .read-more {
+    color: hsl(var(--ak-brand));
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] article.card .read-more:hover {
+    color: hsl(var(--ak-accent));
+  }
+
+  /* === BUTTONS === */
+  html[data-theme="moskee-al-khalil"] .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--ak-radius-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: #ffffff;
+    background: linear-gradient(135deg, hsl(var(--ak-accent)) 0%, hsl(var(--ak-accent-2)) 100%);
+    box-shadow: var(--ak-shadow-colored);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all var(--ak-transition);
+    text-decoration: none;
+  }
+
+  html[data-theme="moskee-al-khalil"] .btn-primary:hover {
+    filter: brightness(1.05);
+    box-shadow: var(--ak-shadow-colored-lg);
+    transform: translateY(-2px);
+  }
+
+  html[data-theme="moskee-al-khalil"] .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--ak-shadow-colored);
+  }
+
+  html[data-theme="moskee-al-khalil"] .btn-primary:focus-visible {
+    outline: 2px solid hsl(var(--ak-ring));
+    outline-offset: 2px;
+  }
+
+  html[data-theme="moskee-al-khalil"] .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--ak-radius-sm);
+    border: 1px solid hsl(var(--ak-border-medium));
+    background: hsl(var(--ak-surface));
+    color: hsl(var(--ak-text));
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all var(--ak-transition);
+    text-decoration: none;
+  }
+
+  html[data-theme="moskee-al-khalil"] .btn-secondary:hover {
+    background: hsl(var(--ak-surface-hover));
+    border-color: hsl(var(--ak-brand));
+    color: hsl(var(--ak-brand));
+    box-shadow: var(--ak-shadow-xs);
+  }
+
+  html[data-theme="moskee-al-khalil"] .btn-link {
+    color: hsl(var(--ak-muted));
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    transition: color var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] .btn-link:hover {
+    color: hsl(var(--ak-brand));
+    text-decoration-color: hsl(var(--ak-brand) / 0.5);
+  }
+
+  /* === FORMS === */
+  html[data-theme="moskee-al-khalil"] input[type="text"],
+  html[data-theme="moskee-al-khalil"] input[type="email"],
+  html[data-theme="moskee-al-khalil"] input[type="password"],
+  html[data-theme="moskee-al-khalil"] input[type="search"],
+  html[data-theme="moskee-al-khalil"] input[type="tel"],
+  html[data-theme="moskee-al-khalil"] input[type="url"],
+  html[data-theme="moskee-al-khalil"] input[type="number"],
+  html[data-theme="moskee-al-khalil"] textarea,
+  html[data-theme="moskee-al-khalil"] select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid hsl(var(--ak-border-medium));
+    border-radius: var(--ak-radius-md);
+    background: hsl(var(--ak-surface));
+    color: hsl(var(--ak-text));
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    transition: border-color var(--ak-transition), box-shadow var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] input:focus,
+  html[data-theme="moskee-al-khalil"] textarea:focus,
+  html[data-theme="moskee-al-khalil"] select:focus {
+    outline: none;
+    border-color: hsl(var(--ak-ring));
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+  }
+
+  html[data-theme="moskee-al-khalil"] input::placeholder,
+  html[data-theme="moskee-al-khalil"] textarea::placeholder {
+    color: hsl(var(--ak-muted-2));
+  }
+
+  html[data-theme="moskee-al-khalil"] label {
+    display: block;
+    color: hsl(var(--ak-text));
+    font-weight: 500;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .input-error {
+    color: hsl(var(--ak-error));
+    font-size: 0.875rem;
+    margin-top: 0.375rem;
+  }
+
+  /* === SECTION HEADERS === */
+  html[data-theme="moskee-al-khalil"] .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: hsl(var(--ak-text));
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  html[data-theme="moskee-al-khalil"] .section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: hsl(var(--ak-muted));
+    max-width: 48rem;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* === BADGES === */
+  html[data-theme="moskee-al-khalil"] .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--ak-radius-full);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  html[data-theme="moskee-al-khalil"] .badge-primary {
+    background: hsl(var(--ak-accent-light));
+    color: hsl(var(--ak-accent-2));
+  }
+
+  html[data-theme="moskee-al-khalil"] .badge-secondary {
+    background: hsl(var(--ak-border));
+    color: hsl(var(--ak-text-medium));
+  }
+
+  /* === HERO SECTION === */
+  html[data-theme="moskee-al-khalil"] .hero {
+    position: relative;
+    padding: 4rem 1.25rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    html[data-theme="moskee-al-khalil"] .hero {
+      padding: 6rem 2rem;
+    }
+  }
+
+  html[data-theme="moskee-al-khalil"] .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.12), transparent 60%);
+    pointer-events: none;
+  }
+
+  html[data-theme="moskee-al-khalil"] .hero-title {
+    position: relative;
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    font-weight: 800;
+    color: hsl(var(--ak-text));
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  html[data-theme="moskee-al-khalil"] .hero-description {
+    position: relative;
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    color: hsl(var(--ak-muted));
+    max-width: 52rem;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+  }
+
+  /* === FOOTER === */
+  html[data-theme="moskee-al-khalil"] footer {
+    margin-top: var(--ak-section-spacing);
+    padding: 3rem 1.25rem 2rem;
+    background: linear-gradient(to bottom, transparent, hsl(var(--ak-surface-2)));
+    border-top: 1px solid hsl(var(--ak-border));
+  }
+
+  html[data-theme="moskee-al-khalil"] footer a {
+    color: hsl(var(--ak-text-medium));
+    text-decoration: none;
+    transition: color var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] footer a:hover {
+    color: hsl(var(--ak-brand));
+  }
+
+  html[data-theme="moskee-al-khalil"] .footer-content {
+    max-width: var(--ak-container);
+    margin: 0 auto;
+  }
+
+  /* === ALERTS === */
+  html[data-theme="moskee-al-khalil"] .alert {
+    padding: 1rem 1.25rem;
+    border-radius: var(--ak-radius-md);
+    border-left: 4px solid;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  html[data-theme="moskee-al-khalil"] .alert-success {
+    background: hsl(var(--ak-success) / 0.1);
+    border-color: hsl(var(--ak-success));
+    color: hsl(142 76% 25%);
+  }
+
+  html[data-theme="moskee-al-khalil"] .alert-error {
+    background: hsl(var(--ak-error) / 0.1);
+    border-color: hsl(var(--ak-error));
+    color: hsl(0 72% 35%);
+  }
+
+  html[data-theme="moskee-al-khalil"] .alert-info {
+    background: hsl(var(--ak-info) / 0.1);
+    border-color: hsl(var(--ak-info));
+    color: hsl(199 89% 32%);
+  }
+
+  html[data-theme="moskee-al-khalil"] .alert-warning {
+    background: hsl(var(--ak-warning) / 0.1);
+    border-color: hsl(var(--ak-warning));
+    color: hsl(38 92% 35%);
+  }
+
+  /* === PAGINATION === */
+  html[data-theme="moskee-al-khalil"] .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .pagination a,
+  html[data-theme="moskee-al-khalil"] .pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--ak-radius-sm);
+    border: 1px solid hsl(var(--ak-border-medium));
+    background: hsl(var(--ak-surface));
+    color: hsl(var(--ak-text));
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] .pagination a:hover {
+    background: hsl(var(--ak-brand-light));
+    border-color: hsl(var(--ak-brand));
+    color: hsl(var(--ak-brand));
+  }
+
+  html[data-theme="moskee-al-khalil"] .pagination .active {
+    background: linear-gradient(135deg, hsl(var(--ak-accent)), hsl(var(--ak-accent-2)));
+    border-color: hsl(var(--ak-accent));
+    color: white;
+  }
+
+  /* === TABLES === */
+  html[data-theme="moskee-al-khalil"] table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid hsl(var(--ak-border));
+    border-radius: var(--ak-radius-md);
+    overflow: hidden;
+    background: hsl(var(--ak-surface));
+  }
+
+  html[data-theme="moskee-al-khalil"] thead {
+    background: hsl(var(--ak-surface-2));
+  }
+
+  html[data-theme="moskee-al-khalil"] th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: hsl(var(--ak-text));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  html[data-theme="moskee-al-khalil"] td {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid hsl(var(--ak-border));
+    color: hsl(var(--ak-text-medium));
+  }
+
+  html[data-theme="moskee-al-khalil"] tbody tr:hover {
+    background: hsl(var(--ak-surface-hover));
+  }
+
+  /* === DROPDOWN MENUS === */
+  html[data-theme="moskee-al-khalil"] .dropdown-content {
+    background: hsl(var(--ak-surface));
+    border: 1px solid hsl(var(--ak-border));
+    border-radius: var(--ak-radius-md);
+    box-shadow: var(--ak-shadow-md);
+    padding: 0.5rem;
+    min-width: 12rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .dropdown-content a {
+    display: block;
+    padding: 0.625rem 1rem;
+    border-radius: var(--ak-radius-sm);
+    color: hsl(var(--ak-text));
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: background var(--ak-transition), color var(--ak-transition);
+  }
+
+  html[data-theme="moskee-al-khalil"] .dropdown-content a:hover {
+    background: hsl(var(--ak-surface-hover));
+    color: hsl(var(--ak-brand));
+  }
+}
+
+/*
+  ============================================
+  UTILITIES - Helper Classes
+  ============================================
+*/
+@layer utilities {
+
+  /* === Spacing Utilities === */
+  html[data-theme="moskee-al-khalil"] .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+
+  html[data-theme="moskee-al-khalil"] .space-y-8 > * + * {
+    margin-top: 2rem;
+  }
+
+  /* === Text Utilities === */
+  html[data-theme="moskee-al-khalil"] .text-center {
+    text-align: center;
+  }
+
+  html[data-theme="moskee-al-khalil"] .text-muted {
+    color: hsl(var(--ak-muted));
+  }
+
+  html[data-theme="moskee-al-khalil"] .text-brand {
+    color: hsl(var(--ak-brand));
+  }
+
+  html[data-theme="moskee-al-khalil"] .text-accent {
+    color: hsl(var(--ak-accent));
+  }
+
+  /* === Grid Layouts === */
+  html[data-theme="moskee-al-khalil"] .grid-cols-1 {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    html[data-theme="moskee-al-khalil"] .grid-cols-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    html[data-theme="moskee-al-khalil"] .grid-cols-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    html[data-theme="moskee-al-khalil"] .grid-cols-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* === Animations === */
+  html[data-theme="moskee-al-khalil"] .fade-in {
+    animation: fadeIn var(--ak-transition-slow) ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  html[data-theme="moskee-al-khalil"] .slide-in {
+    animation: slideIn var(--ak-transition-slow) ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* === Decorative Elements === */
+  html[data-theme="moskee-al-khalil"] .divider {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--ak-border-medium)) 20%,
+      hsl(var(--ak-border-medium)) 80%,
+      transparent
+    );
+    margin: 2.5rem 0;
+  }
+
+  html[data-theme="moskee-al-khalil"] .divider-thick {
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--ak-brand)) 30%,
+      hsl(var(--ak-accent)) 50%,
+      hsl(var(--ak-brand)) 70%,
+      transparent
+    );
+    margin: 3rem 0;
+  }
+
+  /* === Loading States === */
+  html[data-theme="moskee-al-khalil"] .skeleton {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--ak-surface-2)) 25%,
+      hsl(var(--ak-surface-hover)) 50%,
+      hsl(var(--ak-surface-2)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--ak-radius-sm);
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* === Aspect Ratios === */
+  html[data-theme="moskee-al-khalil"] .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  html[data-theme="moskee-al-khalil"] .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  /* === Surface Backgrounds === */
+  html[data-theme="moskee-al-khalil"] .bg-surface {
+    background: hsl(var(--ak-surface));
+  }
+
+  html[data-theme="moskee-al-khalil"] .bg-surface-2 {
+    background: hsl(var(--ak-surface-2));
+  }
+
+  html[data-theme="moskee-al-khalil"] .bg-gradient-brand {
+    background: linear-gradient(135deg, hsl(var(--ak-brand)), hsl(var(--ak-brand-2)));
+  }
+
+  html[data-theme="moskee-al-khalil"] .bg-gradient-accent {
+    background: linear-gradient(135deg, hsl(var(--ak-accent)), hsl(var(--ak-accent-2)));
+  }
+}
+
+/*
+  ============================================
+  RESPONSIVE UTILITIES
+  ============================================
+*/
+@media (max-width: 767px) {
+  html[data-theme="moskee-al-khalil"] .mobile-hidden {
+    display: none !important;
+  }
+
+  html[data-theme="moskee-al-khalil"] .mobile-stack {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  html[data-theme="moskee-al-khalil"] .desktop-hidden {
+    display: none !important;
+  }
+}
+
+/*
+  ============================================
+  PRINT STYLES
+  ============================================
+*/
+@media print {
+  html[data-theme="moskee-al-khalil"] {
+    background: white;
+  }
+
+  html[data-theme="moskee-al-khalil"] body {
+    background: white;
+  }
+
+  html[data-theme="moskee-al-khalil"] nav,
+  html[data-theme="moskee-al-khalil"] footer,
+  html[data-theme="moskee-al-khalil"] .no-print {
+    display: none !important;
+  }
+
+  html[data-theme="moskee-al-khalil"] .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/*
+  ============================================
+  ACCESSIBILITY ENHANCEMENTS
+  ============================================
+*/
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="moskee-al-khalil"] * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  html[data-theme="moskee-al-khalil"] {
+    --ak-border: 214 32% 70%;
+    --ak-border-medium: 214 30% 60%;
+  }
+
+  html[data-theme="moskee-al-khalil"] .card {
+    border-width: 2px;
+  }
+}
+
+/* Screen reader only content */
+html[data-theme="moskee-al-khalil"] .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
