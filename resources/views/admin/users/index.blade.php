@@ -8,9 +8,11 @@
 
         {{-- Only admins can reach this page anyway, but keeping it explicit/readable --}}
         @if(auth()->user()?->is_admin)
-            <a href="{{ route('admin.users.create') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg shadow-sm hover:bg-emerald-700 transition">
-                <span class="text-lg leading-none">+</span>
-                <span>Nieuwe gebruiker</span>
+            <a href="{{ route('admin.users.create') }}">
+                <x-admin-button>
+                    <span class="text-lg leading-none">+</span>
+                    <span>Nieuwe gebruiker</span>
+                </x-admin-button>
             </a>
         @endif
     </div>
@@ -30,18 +32,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
-            <button
-                type="submit"
-                class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium"
-            >
-                Zoeken
-            </button>
+
+            <x-admin-button type="submit">Zoeken</x-admin-button>
+
             @if($search ?? false)
-                <a
-                    href="{{ route('admin.users.index') }}"
-                    class="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition font-medium"
-                >
-                    Reset
+                <a href="{{ route('admin.users.index') }}">
+                    <x-admin-button variant="secondary">Reset</x-admin-button>
                 </a>
             @endif
         </form>
@@ -85,14 +81,13 @@
                                 <form method="POST" action="{{ route('admin.users.toggleAdmin', $user) }}" class="inline">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="px-3 py-1.5 rounded-lg shadow-sm {{ $user->is_admin ? 'bg-slate-100 text-slate-800 hover:bg-slate-200' : 'bg-emerald-600 text-white hover:bg-emerald-700' }} transition">
-                                        {{-- Explicit action label (what will happen when you click) --}}
+                                    <x-admin-button type="submit">
                                         @if($user->is_admin)
                                             Admin afnemen
                                         @else
                                             Admin maken
                                         @endif
-                                    </button>
+                                    </x-admin-button>
                                 </form>
 
                                 @php
@@ -108,9 +103,7 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="px-3 py-1.5 rounded-lg shadow-sm bg-rose-600 text-white hover:bg-rose-700 transition">
-                                            Verwijderen
-                                        </button>
+                                        <x-admin-button type="submit" variant="danger">Verwijderen</x-admin-button>
                                     </form>
                                 @else
                                     <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-400 cursor-not-allowed" title="Je kan jezelf of admins niet verwijderen" disabled>

@@ -5,7 +5,9 @@
 @section('content')
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-2xl font-bold">FAQ categorieen</h1>
-        <a href="{{ route('admin.categories.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded">Nieuwe categorie</a>
+        <a href="{{ route('admin.categories.create') }}">
+            <x-admin-button>Nieuwe categorie</x-admin-button>
+        </a>
     </div>
 
     <div class="bg-white border rounded overflow-x-auto">

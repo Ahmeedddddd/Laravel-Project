@@ -15,7 +15,7 @@
 
             @include('admin.faq.categories._form', ['category' => $category])
 
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Opslaan</button>
+            <x-admin-button type="submit">Opslaan</x-admin-button>
         </form>
     </div>
 @endsection

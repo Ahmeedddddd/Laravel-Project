@@ -10,7 +10,11 @@
         <p class="text-gray-600 text-sm mt-1">Hier kan je users beheren.</p>
 
         <div class="mt-4">
-            <a href="{{ route('admin.users.index') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded">Ga naar user management</a>
+            <a href="{{ route('admin.users.index') }}">
+                <x-admin-button>
+                    Ga naar user management
+                </x-admin-button>
+            </a>
         </div>
     </div>
 @endsection

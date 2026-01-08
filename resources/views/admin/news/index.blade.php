@@ -5,7 +5,9 @@
 @section('content')
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-2xl font-bold">News beheer</h1>
-        <a href="{{ route('admin.news.create') }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded">Nieuw nieuwsitem</a>
+        <a href="{{ route('admin.news.create') }}">
+            <x-admin-button>Nieuw nieuwsitem</x-admin-button>
+        </a>
     </div>
 
     <div class="bg-white border rounded overflow-x-auto">

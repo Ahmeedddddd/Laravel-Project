@@ -44,10 +44,9 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Opslaan</button>
+                <x-admin-button type="submit">Opslaan</x-admin-button>
                 <a href="{{ route('admin.news.index') }}" class="underline">Annuleren</a>
             </div>
         </form>
     </div>
 @endsection
-

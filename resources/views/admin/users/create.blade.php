@@ -42,11 +42,8 @@
             </div>
 
             <div class="pt-2">
-                <button type="submit" class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg shadow-sm hover:bg-emerald-700 transition">
-                    Gebruiker aanmaken
-                </button>
+                <x-admin-button type="submit">Gebruiker aanmaken</x-admin-button>
             </div>
         </form>
     </div>
 @endsection
-

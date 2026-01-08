@@ -11,7 +11,7 @@
 
         <form method="GET" action="{{ route('admin.contact.index') }}" class="flex gap-2">
             <input name="q" value="{{ $q }}" placeholder="Zoek op naam, e-mail, onderwerp…" class="border rounded px-3 py-2" />
-            <button class="px-4 py-2 bg-emerald-700 text-white rounded">Zoeken</button>
+            <x-admin-button type="submit">Zoeken</x-admin-button>
         </form>
     </div>
 

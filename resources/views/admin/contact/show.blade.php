@@ -34,7 +34,7 @@
                     @error('admin_reply')
                         <div class="text-sm text-red-700">{{ $message }}</div>
                     @enderror
-                    <button class="px-4 py-2 bg-emerald-700 text-white rounded">Opslaan</button>
+                    <x-admin-button type="submit">Opslaan</x-admin-button>
                 </form>
             </div>
         </div>
