@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Profile;
+use App\Services\UsernameGenerator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,18 +31,7 @@ class ProfileController extends Controller
      */
     private function generateUniqueUsername(string $preferred): string
     {
-        $base = Str::slug($preferred, '');
-        $base = $base !== '' ? strtolower($base) : 'user';
-
-        $username = $base;
-        $i = 2;
-
-        while (Profile::where('username', $username)->exists()) {
-            $username = $base . $i;
-            $i++;
-        }
-
-        return $username;
+        return UsernameGenerator::uniqueFromPreferred($preferred);
     }
 
     /**

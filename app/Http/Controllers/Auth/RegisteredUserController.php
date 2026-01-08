@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\UsernameGenerator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,6 +40,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+        // Ensure new users are immediately discoverable on /members and have a public profile URL.
+        $user->profile()->create([
+            'user_id' => $user->id,
+            'username' => UsernameGenerator::uniqueFromPreferred($user->name),
         ]);
 
         event(new Registered($user));
