@@ -17,6 +17,14 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
 
+                        <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
+                            {{ __('Members') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('account.messages.index')" :active="request()->routeIs('account.messages.*')">
+                            {{ __('Berichten') }}
+                        </x-nav-link>
+
                         <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
                             {{ __('News') }}
                         </x-nav-link>
@@ -31,6 +39,10 @@
                     @else
                         <x-nav-link :href="url('/')" :active="request()->is('/')">
                             {{ __('Home') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
+                            {{ __('Members') }}
                         </x-nav-link>
 
                         <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
@@ -115,6 +127,14 @@
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
 
+                <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
+                    {{ __('Members') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('account.messages.index')" :active="request()->routeIs('account.messages.*')">
+                    {{ __('Berichten') }}
+                </x-responsive-nav-link>
+
                 <x-responsive-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">
                     {{ __('News') }}
                 </x-responsive-nav-link>
@@ -129,6 +149,10 @@
             @else
                 <x-responsive-nav-link :href="url('/')" :active="request()->is('/')">
                     {{ __('Home') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
+                    {{ __('Members') }}
                 </x-responsive-nav-link>
 
                 <x-responsive-nav-link :href="route('news.index')" :active="request()->routeIs('news.*')">

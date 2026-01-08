@@ -10,9 +10,28 @@ class ContactMessage extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'subject',
         'message',
+        'admin_reply',
+        'replied_at',
+        'read_at',
     ];
+
+    protected $casts = [
+        'replied_at' => 'datetime',
+        'read_at' => 'datetime',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeNewestFirst($query)
+    {
+        return $query->orderByDesc('created_at');
+    }
 }
