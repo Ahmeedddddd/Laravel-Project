@@ -11,7 +11,13 @@ class ContactController extends Controller
 {
     public function show(): View
     {
-        return view('contact.show');
+        /** @var \App\Models\User|null $user */
+        $user = auth()->user();
+
+        return view('contact.show', [
+            'prefillName' => old('name', $user?->name ?? ''),
+            'prefillEmail' => old('email', $user?->email ?? ''),
+        ]);
     }
 
     public function submit(Request $request): RedirectResponse
@@ -23,7 +29,10 @@ class ContactController extends Controller
             'message' => ['required', 'string'],
         ]);
 
-        ContactMessage::create($validated);
+        ContactMessage::create([
+            'user_id' => auth()->id(),
+            ...$validated,
+        ]);
 
         return redirect()
             ->route('contact.show')

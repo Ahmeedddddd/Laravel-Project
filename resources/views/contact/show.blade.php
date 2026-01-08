@@ -17,7 +17,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-slate-700" for="name">Naam</label>
-                <input id="name" name="name" type="text" required value="{{ old('name') }}" class="mt-1 w-full border border-slate-200 rounded-lg px-3 py-2" />
+                <input id="name" name="name" type="text" required value="{{ $prefillName ?? old('name') }}" class="mt-1 w-full border border-slate-200 rounded-lg px-3 py-2" />
                 @error('name')
                     <div class="mt-1 text-sm text-red-700">{{ $message }}</div>
                 @enderror
@@ -25,7 +25,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-slate-700" for="email">E-mail</label>
-                <input id="email" name="email" type="email" required value="{{ old('email') }}" class="mt-1 w-full border border-slate-200 rounded-lg px-3 py-2" />
+                <input id="email" name="email" type="email" required value="{{ $prefillEmail ?? old('email') }}" class="mt-1 w-full border border-slate-200 rounded-lg px-3 py-2" />
                 @error('email')
                     <div class="mt-1 text-sm text-red-700">{{ $message }}</div>
                 @enderror

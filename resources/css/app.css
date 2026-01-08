@@ -1,43 +1,202 @@
+@import "./themes/moskee-al-khalil/index.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*
-  Minimal theme polish (white & green). We keep HTML intact and rely on Tailwind.
-  These base styles only smooth typography and defaults.
+  ============================================
+  Moskee Al Khalil - Global Theme Overrides
+  ============================================
+  Additional styling to ensure consistency across the application
 */
+
 @layer base {
   html {
     @apply text-slate-900;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-slate-50;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
   }
 
+  /* Improve link accessibility */
   a {
     @apply underline-offset-4;
+  }
+
+  /* Better image rendering */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Smooth scrolling for anchor links */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 }
 
 @layer components {
+  /* === Page Container === */
   .container-page {
-    @apply max-w-5xl mx-auto px-4 py-8;
+    @apply max-w-6xl mx-auto px-4 py-8;
   }
 
+  @media (min-width: 640px) {
+    .container-page {
+      @apply px-6 py-10;
+    }
+  }
+
+  /* === Card Variants === */
   .card {
     @apply bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-sm ring-1 ring-black/5;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  .card-hover:hover {
+    @apply shadow-md ring-emerald-500/10 -translate-y-0.5;
+  }
+
+  /* === Button Variants === */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white font-medium shadow-sm;
-    @apply hover:bg-emerald-700 active:bg-emerald-800;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg;
+    @apply bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-semibold;
+    @apply shadow-sm shadow-emerald-500/30;
+    @apply hover:shadow-md hover:shadow-emerald-500/40 hover:-translate-y-0.5;
+    @apply active:translate-y-0 active:shadow-sm;
     @apply focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2;
-    @apply transition;
+    @apply transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg;
+    @apply bg-white border-2 border-slate-200 text-slate-700 font-semibold;
+    @apply hover:border-emerald-500 hover:text-emerald-700 hover:bg-emerald-50/50;
+    @apply focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2;
+    @apply transition-all duration-200;
   }
 
   .btn-link {
-    @apply text-slate-600 hover:text-emerald-700 underline;
+    @apply text-slate-600 hover:text-emerald-700 underline underline-offset-4;
     @apply focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded-md;
+    @apply transition-colors duration-200;
+  }
+
+  /* === Input Styling === */
+  .input-field {
+    @apply w-full px-4 py-2.5 rounded-xl border border-slate-200;
+    @apply bg-white text-slate-900 placeholder:text-slate-400;
+    @apply focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500;
+    @apply transition-all duration-200;
+  }
+
+  .input-label {
+    @apply block text-sm font-medium text-slate-700 mb-1.5;
+  }
+
+  .input-error {
+    @apply text-sm text-red-600 mt-1;
+  }
+
+  /* === Navigation Enhancements === */
+  nav.navbar {
+    @apply bg-white/95 backdrop-blur-sm border-b border-slate-200;
+    @apply sticky top-0 z-50;
+    transition: box-shadow 200ms ease, background-color 200ms ease;
+  }
+
+  nav.navbar.scrolled {
+    @apply shadow-md;
+  }
+
+  /* === Alert Components === */
+  .alert {
+    @apply p-4 rounded-xl border-l-4;
+  }
+
+  .alert-success {
+    @apply bg-emerald-50 border-emerald-500 text-emerald-900;
+  }
+
+  .alert-error {
+    @apply bg-red-50 border-red-500 text-red-900;
+  }
+
+  .alert-warning {
+    @apply bg-amber-50 border-amber-500 text-amber-900;
+  }
+
+  .alert-info {
+    @apply bg-blue-50 border-blue-500 text-blue-900;
+  }
+
+  /* === Section Headers === */
+  .section-header {
+    @apply text-center mb-12;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-slate-900 mb-3;
+    letter-spacing: -0.02em;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-slate-600 max-w-2xl mx-auto;
+  }
+
+  /* === Badge Components === */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-emerald-100 text-emerald-800;
+  }
+
+  .badge-secondary {
+    @apply bg-slate-100 text-slate-800;
+  }
+
+  /* === Loading Skeleton === */
+  .skeleton {
+    @apply animate-pulse bg-slate-200 rounded;
+  }
+
+  /* === Dividers === */
+  .divider {
+    @apply h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent my-8;
+  }
+}
+
+/*
+  ============================================
+  Custom Utilities
+  ============================================
+*/
+@layer utilities {
+  /* Gradient Text */
+  .text-gradient-brand {
+    @apply bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent;
+  }
+
+  /* Glass Effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md;
+  }
+
+  /* Subtle Hover Lift */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  /* Focus Ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2;
   }
 }

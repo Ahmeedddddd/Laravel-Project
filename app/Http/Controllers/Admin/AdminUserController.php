@@ -11,14 +11,22 @@ use Illuminate\View\View;
 
 class AdminUserController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $search = $request->input('search');
+
         $users = User::query()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
             ->orderByDesc('is_admin')
             ->orderBy('name')
             ->get();
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.index', compact('users', 'search'));
     }
 
     public function create(): View

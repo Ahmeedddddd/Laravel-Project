@@ -7,31 +7,36 @@ it('shows public homepage without auth', function () {
     $response = $this->get('/');
 
     $response->assertOk();
-    $response->assertSee('Zoek gebruikers');
+    $response->assertSee('Home');
 });
 
-it('filters users by username and display name via GET q parameter', function () {
+it('shows members page and filters users by username and display name via GET q parameter', function () {
     $user1 = User::factory()->create(['name' => 'Alice']);
     $user2 = User::factory()->create(['name' => 'Bob']);
 
-    $profile1 = Profile::create([
+    Profile::create([
         'user_id' => $user1->id,
         'username' => 'alice',
         'display_name' => 'Alice Wonderland',
     ]);
 
-    $profile2 = Profile::create([
+    Profile::create([
         'user_id' => $user2->id,
         'username' => 'bob',
         'display_name' => 'Bobby',
     ]);
 
-    $this->get('/?q=ali')
+    $this->get('/members')
+        ->assertOk()
+        ->assertSee('Members')
+        ->assertSee('Gebruikers');
+
+    $this->get('/members?q=ali')
         ->assertOk()
         ->assertSee('alice')
         ->assertDontSee('bob');
 
-    $this->get('/?q=Wonder')
+    $this->get('/members?q=Wonder')
         ->assertOk()
         ->assertSee('alice')
         ->assertDontSee('bob');
@@ -52,4 +57,3 @@ it('shows public profile page at /users/{username}', function () {
         ->assertSee('Charlie C.')
         ->assertSee('@charlie');
 });
-

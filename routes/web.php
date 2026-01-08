@@ -6,18 +6,23 @@ use App\Http\Controllers\Admin\AdminFaqCategoryController;
 use App\Http\Controllers\Admin\AdminFaqItemController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminContactMessageController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqPublicController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MembersController;
 use App\Http\Controllers\NewsPublicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicProfileController;
-use App\Http\Controllers\UserSearchController;
+use App\Http\Controllers\User\MailboxController;
 use Illuminate\Support\Facades\Route;
 
-// Public homepage (guest) + search (GET)
+// Public homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Public members (search)
+Route::get('/members', [MembersController::class, 'index'])->name('members.index');
 
 // Public news
 Route::get('/news', [NewsPublicController::class, 'index'])->name('news.index');
@@ -58,9 +63,9 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/account', [AccountController::class, 'update'])->name('account.update');
     Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
 
-    // Existing custom profile editor (Dutch URL)
-    Route::get('/profiel', [ProfileController::class, 'edit']);
-    Route::patch('/profiel', [ProfileController::class, 'update']);
+    // User mailbox
+    Route::get('/account/messages', [MailboxController::class, 'index'])->name('account.messages.index');
+    Route::get('/account/messages/{message}', [MailboxController::class, 'show'])->name('account.messages.show');
 });
 
 // Admin routes
@@ -88,6 +93,11 @@ Route::middleware(['auth', 'is_admin'])
         Route::resource('faq/items', AdminFaqItemController::class)
             ->parameters(['items' => 'item'])
             ->except(['show']);
+
+        // Contact inbox (mailbox)
+        Route::get('/contact', [AdminContactMessageController::class, 'index'])->name('contact.index');
+        Route::get('/contact/{message}', [AdminContactMessageController::class, 'show'])->name('contact.show');
+        Route::post('/contact/{message}/reply', [AdminContactMessageController::class, 'reply'])->name('contact.reply');
 
         // Backwards-compatible endpoints (can be removed later)
         Route::patch('/users/{user}/make-admin', [AdminUserController::class, 'makeAdmin'])->name('users.make');
