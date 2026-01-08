@@ -13,22 +13,6 @@
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h2 class="text-lg font-semibold text-slate-900">Zoek gebruikers</h2>
-                    <p class="text-sm text-slate-600 mt-1">
-                        Zoek andere gebruikers op username of weergavenaam.
-                    </p>
-
-                    <div class="mt-4">
-                        <x-profile-search-form
-                            :action="route('users.search')"
-                            :q="request('q', '')"
-                            :reset-url="route('users.search')"
-                        />
-                    </div>
-                </div>
-            </div>
 
             <div>
                 <div class="flex items-center justify-between gap-4">
