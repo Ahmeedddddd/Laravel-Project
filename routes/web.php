@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminContactMessageController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqPublicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersController;
@@ -35,9 +34,10 @@ Route::get('/faq', [FaqPublicController::class, 'index'])->name('faq.index');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Remove separate dashboard: homepage is the start page for everyone.
+// Route::get('/dashboard', [DashboardController::class, 'index'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 // Public profile view (anyone) - required URL structure:
 Route::get('/users/{username}', [PublicProfileController::class, 'show'])->name('public.users.show');
@@ -80,6 +80,7 @@ Route::middleware(['auth', 'is_admin'])
         Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
 
         Route::patch('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggleAdmin');
+        Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
 
         // News CRUD
         Route::resource('news', AdminNewsController::class)->except(['show']);

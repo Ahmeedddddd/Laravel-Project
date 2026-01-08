@@ -71,6 +71,24 @@ class AdminUserController extends Controller
         return back()->with('success', "Rol aangepast: {$user->name} is nu {$role}.");
     }
 
+    public function destroy(User $user): RedirectResponse
+    {
+        $this->authorize('delete', $user);
+
+        // Extra safety (policy already blocks, but keep a friendly message)
+        if (auth()->id() === $user->id) {
+            return redirect()->route('admin.users.index')->with('error', 'Je kan je eigen account niet verwijderen.');
+        }
+
+        if ($user->is_admin) {
+            return redirect()->route('admin.users.index')->with('error', 'Je kan geen admin account verwijderen.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users.index')->with('success', 'Gebruiker verwijderd.');
+    }
+
     // Backwards compatible methods
     public function makeAdmin(User $user): RedirectResponse
     {

@@ -3,20 +3,21 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
+                <!-- Logo / Brand -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ auth()->check() ? route('dashboard') : url('/') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-emerald-700" />
+                    <a href="{{ url('/') }}" class="flex items-center gap-2">
+                        <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-700 text-white font-semibold tracking-tight">
+                            MK
+                        </span>
+                        <span class="hidden sm:block text-slate-900 font-semibold tracking-tight">
+                            Moskee <span class="text-emerald-700">Al Khalil</span>
+                        </span>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @auth
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-
                         <x-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                             {{ __('Members') }}
                         </x-nav-link>
@@ -123,9 +124,6 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @auth
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
 
                 <x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">
                     {{ __('Members') }}

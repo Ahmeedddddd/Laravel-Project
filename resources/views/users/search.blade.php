@@ -11,7 +11,7 @@
         </div>
 
         <div class="text-sm text-slate-600">
-            <a class="btn-link" href="{{ route('dashboard') }}">Naar dashboard</a>
+            <a class="btn-link" href="{{ url('/') }}">Naar home</a>
         </div>
     </div>
 

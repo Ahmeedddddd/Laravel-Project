@@ -12,7 +12,7 @@
 
         <div class="text-sm text-slate-600">
             @auth
-                <a class="btn-link" href="{{ route('dashboard') }}">Naar dashboard</a>
+                <a class="btn-link" href="{{ url('/') }}">Naar home</a>
             @else
                 @if (Route::has('login'))
                     <a class="btn-link" href="{{ route('login') }}">Log in</a>

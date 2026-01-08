@@ -75,24 +75,49 @@
                             </span>
                         </td>
                         <td class="p-3">
-                            @if($user->is_admin)
-                                <span class="mr-2 text-slate-600">Actie: adminrechten afnemen</span>
-                            @else
-                                <span class="mr-2 text-slate-600">Actie: admin maken</span>
-                            @endif
+                            <div class="flex items-center gap-3 flex-wrap">
+                                @if($user->is_admin)
+                                    <span class="mr-2 text-slate-600">Actie: adminrechten afnemen</span>
+                                @else
+                                    <span class="mr-2 text-slate-600">Actie: admin maken</span>
+                                @endif
 
-                            <form method="POST" action="{{ route('admin.users.toggleAdmin', $user) }}" class="inline">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="px-3 py-1.5 rounded-lg shadow-sm {{ $user->is_admin ? 'bg-slate-100 text-slate-800 hover:bg-slate-200' : 'bg-emerald-600 text-white hover:bg-emerald-700' }} transition">
-                                    {{-- Explicit action label (what will happen when you click) --}}
-                                    @if($user->is_admin)
-                                        Admin afnemen
-                                    @else
-                                        Admin maken
-                                    @endif
-                                </button>
-                            </form>
+                                <form method="POST" action="{{ route('admin.users.toggleAdmin', $user) }}" class="inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="px-3 py-1.5 rounded-lg shadow-sm {{ $user->is_admin ? 'bg-slate-100 text-slate-800 hover:bg-slate-200' : 'bg-emerald-600 text-white hover:bg-emerald-700' }} transition">
+                                        {{-- Explicit action label (what will happen when you click) --}}
+                                        @if($user->is_admin)
+                                            Admin afnemen
+                                        @else
+                                            Admin maken
+                                        @endif
+                                    </button>
+                                </form>
+
+                                @php
+                                    $canDelete = auth()->id() !== $user->id && ! $user->is_admin;
+                                @endphp
+
+                                @if($canDelete)
+                                    <form
+                                        method="POST"
+                                        action="{{ route('admin.users.destroy', $user) }}"
+                                        class="inline"
+                                        onsubmit="return confirm('Ben je zeker dat je deze gebruiker wil verwijderen? Dit kan niet ongedaan gemaakt worden.');"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="px-3 py-1.5 rounded-lg shadow-sm bg-rose-600 text-white hover:bg-rose-700 transition">
+                                            Verwijderen
+                                        </button>
+                                    </form>
+                                @else
+                                    <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-400 cursor-not-allowed" title="Je kan jezelf of admins niet verwijderen" disabled>
+                                        Verwijderen
+                                    </button>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @empty
