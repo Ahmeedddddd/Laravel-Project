@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\UsernameGenerator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -47,12 +48,22 @@ class AdminUserController extends Controller
             'is_admin' => ['nullable', 'boolean'],
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'is_admin' => (bool)($validated['is_admin'] ?? false),
+            'is_admin' => (bool) ($validated['is_admin'] ?? false),
         ]);
+
+        // Members page only shows users that have a public Profile with a username.
+        // Create it automatically for normal users so they appear immediately in /members.
+        if (! $user->is_admin && ! $user->profile) {
+            $user->profile()->create([
+                'user_id' => $user->id,
+                'username' => UsernameGenerator::uniqueFromPreferred($user->name),
+                'display_name' => $user->name,
+            ]);
+        }
 
         return redirect()->route('admin.users.index')->with('success', 'Gebruiker aangemaakt.');
     }
